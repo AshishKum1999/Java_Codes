@@ -1,0 +1,78 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();        
+        char[][] arr = new char[n][n];
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n; j++){
+                arr[i][j] = sc.next().charAt(0);
+            }
+        }
+        String str = sc.next();
+        boolean ans = crossWord(arr, n, str);
+        System.out.println(ans);
+    }
+    
+    public static boolean crossWord(char[][] arr, int n, String str){  
+        char ch = str.charAt(0); 
+        for(int row=0; row<n; row++){
+            for(int col=0; col<n; col++){
+                if(arr[row][col] == ch){
+                    boolean check1 = checkRow(arr,n,str,row,col+1); // F
+                    boolean check2 = checkCol(arr,n,str,row+1,col);   // F
+                    boolean check3 = checkDia1(arr,n,str,row+1,col+1); // F
+                    boolean check4 = checkDia2(arr,n,str,row+1,col-1); // F
+                    if(check1 == true || check2 == true || check3 == true || check4 == true){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
+    public static boolean checkRow(char[][] arr, int n, String str, int row, int col){
+        for(int i=1; i<str.length(); i++,col++){
+            if(col >= n || (str.charAt(i) != arr[row][col])){
+                return false;
+            } 
+        }
+        return true;
+    }
+    
+    public static boolean checkCol(char[][] arr, int n, String str, int row, int col){
+        for(int i=1; i<str.length(); i++){
+            if(row >= n || (str.charAt(i) != arr[row][col])){
+                return false;
+            }    
+            row++;
+        }
+        return true;
+    }    
+    
+    public static boolean checkDia1(char[][] arr, int n, String str, int row, int col){
+        for(int i=1; i<str.length(); i++){
+            if(row >= n || col >= n || (str.charAt(i) != arr[row][col])){
+                return false;
+            }  
+            row++;
+            col++;
+        }
+        return true;
+    }
+    
+    public static boolean checkDia2(char[][] arr, int n, String str, int row, int col){
+        for(int i=1; i<str.length(); i++){
+            if(row >= n || col < 0 || (str.charAt(i) != arr[row][col])){
+                return false;
+            } 
+            row++;
+            col--;
+        }
+        return true;
+    }    
+}

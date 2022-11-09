@@ -1,0 +1,25 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        String str=sc.nextLine();
+        
+        System.out.println(isPangram(str));
+    }
+    public static String isPangram(String str){
+        str=str.toLowerCase();
+        for(char i='a'; i<='z'; i++){
+            if(!str.contains(String.valueOf(i))){
+                 return "NO";
+                
+            }
+            // else{
+            //     System.out.println("NO");
+            // }
+        }
+       return "YES";
+    }
+}
